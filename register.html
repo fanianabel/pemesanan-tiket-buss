@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrasi - Putri Transway</title>
+  <link rel="stylesheet" href="css/styleRegister.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://png.pngtree.com/thumb_back/fh260/background/20230717/pngtree-d-rendering-of-a-white-isolated-background-featuring-a-medium-sized-image_3893569.jpg" alt="Background Peta">
+    </div>
+    <section id="register">
+      <div class="avatar">
+        <div class="avatar-icon">👤</div>
+        <p class="upload-text">Masukkan Foto</p>
+      </div>
+      <h3>Lengkapi Biodata</h3>
+      <p class="subtext">Silahkan Isi Data Diri Untuk Melanjutkan</p>
+      <form action="register.php" method="POST">
+        <div class="form-group">
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" name="nama" placeholder="Nama lengkap" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Email aktif" required>
+        </div>
+        <div class="form-group">
+          <label for="telepon">Nomor Telepon</label>
+          <input type="text" id="telepon" name="telepon" placeholder="Nomor telepon">
+        </div>
+        <div class="form-group">
+          <label for="password">Kata Sandi</label>
+          <input type="password" id="password" name="password" placeholder="Kata sandi" required>
+        </div>
+        <div class="form-group">
+          <label for="konfirmasi">Konfirmasi Kata Sandi</label>
+          <input type="password" id="konfirmasi" name="konfirmasi" placeholder="Konfirmasi kata sandi" required>
+        </div>
+        <button type="submit" class="btn-simpan">Simpan</button>
+        <button type="button" class="btn-ubah" disabled>Ubah</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+    const nama = params.get("nama");
+    const email = params.get("email");
+    const telepon = params.get("telepon");
+
+    if (nama) document.getElementById("nama").value = nama;
+    if (email) document.getElementById("email").value = email;
+    if (telepon) document.getElementById("telepon").value = telepon;
+
+    if (error === "email_terdaftar") {
+      const emailField = document.getElementById("email");
+      const warningDiv = document.createElement("div");
+      warningDiv.className = "warning";
+      warningDiv.style.color = "red";
+      warningDiv.style.marginTop = "4px";
+      warningDiv.textContent = "Email sudah terdaftar. Gunakan email lain.";
+      emailField.parentNode.appendChild(warningDiv);
+    }
+
+    if (error === "konfirmasi_salah") {
+      const passField = document.getElementById("konfirmasi");
+      const warningDiv = document.createElement("div");
+      warningDiv.className = "warning";
+      warningDiv.style.color = "red";
+      warningDiv.style.marginTop = "4px";
+      warningDiv.textContent = "Konfirmasi kata sandi tidak cocok.";
+      passField.parentNode.appendChild(warningDiv);
+    }
+  </script>
+</body>
+</html>
